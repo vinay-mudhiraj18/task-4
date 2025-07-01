@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio App</title>
+  <style>
+    :root {
+      --main-color: #007bff;
+      --light-bg: #f9f9f9;
+      --accent: #444;
+      --card-bg: white;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--light-bg);
+      color: var(--accent);
+    }
+
+    header {
+      background: var(--main-color);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    #home {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 800px;
+      margin-top: 2rem;
+    }
+
+    .option-card {
+      background: var(--card-bg);
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .option-card:hover {
+      background: #eef6ff;
+      transform: translateY(-3px);
+    }
+
+    .option-card img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 0.5rem;
+    }
+
+    section {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      display: none;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    button, input, textarea, select {
+      font-size: 1rem;
+      padding: 0.6rem;
+      margin-top: 0.5rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    ul { list-style: none; padding: 0; }
+    li {
+      background: #f0f0f0;
+      margin-bottom: 0.5rem;
+      padding: 0.7rem;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 8px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .product {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .filter-group label {
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .back-button {
+      background: #ccc;
+      color: #222;
+      border: none;
+      margin-top: 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      .option-card {
+        padding: 1rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header><h1>Welcome to My Portfolio & Apps</h1></header>
+
+  <!-- Home Page -->
+  <section id="home">
+    <h2>Select an Option</h2>
+    <div class="option-grid">
+      <div class="option-card" onclick="navigateTo('about')">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="About" />
+        About
+      </div>
+      <div class="option-card" onclick="navigateTo('projects')">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906175.png" alt="Projects" />
+        Projects
+      </div>
+      <div class="option-card" onclick="navigateTo('contact')">
+        <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Contact" />
+        Contact
+      </div>
+      <div class="option-card" onclick="navigateTo('todo')">
+        <img src="https://cdn-icons-png.flaticon.com/512/3138/3138864.png" alt="To-Do" />
+        To-Do App
+      </div>
+      <div class="option-card" onclick="navigateTo('store')">
+        <img src="https://cdn-icons-png.flaticon.com/512/263/263115.png" alt="Store" />
+        Product Store
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I'm a web developer passionate about building modern, interactive, and responsive web applications.</p>
+    <button class="back-button" onclick="goHome()">Back to Home</button>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul>
+      <li>To-Do App with LocalStorage</li>
+      <li>Product Store with Filtering/Sorting</li>
+    </ul>
+    <button class="back-button" onclick="goHome()">Back to Home</button>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message"></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <button class="back-button" onclick="goHome()">Back to Home</button>
+  </section>
+
+  <!-- To-Do List -->
+  <section id="todo">
+    <h2>To-Do List</h2>
+    <div class="todo-input">
+      <input type="text" id="taskInput" placeholder="Enter a task...">
+      <button id="addTaskBtn">Add Task</button>
+    </div>
+    <ul id="taskList"></ul>
+    <button class="back-button" onclick="goHome()">Back to Home</button>
+  </section>
+
+  <!-- Product Store -->
+  <section id="store">
+    <h2>Product Store</h2>
+    <div class="filter-group">
+      <label>Category:
+        <select id="categoryFilter">
+          <option value="all">All</option>
+          <option value="electronics">Electronics</option>
+          <option value="clothing">Clothing</option>
+          <option value="books">Books</option>
+        </select>
+      </label>
+      <label>Max Price:
+        <input type="range" id="priceFilter" min="0" max="1000" value="1000">
+        <span id="priceValue">1000</span>
+      </label>
+      <label>Sort by Rating:
+        <select id="sortBy">
+          <option value="high">High to Low</option>
+          <option value="low">Low to High</option>
+        </select>
+      </label>
+    </div>
+    <div class="product-grid" id="productList"></div>
+    <button class="back-button" onclick="goHome()">Back to Home</button>
+  </section>
+
+  <!-- Script -->
+  <script>
+    function navigateTo(id) {
+      document.getElementById('home').style.display = 'none';
+      document.querySelectorAll('section').forEach(sec => {
+        if (sec.id !== id && sec.id !== 'home') sec.style.display = 'none';
+      });
+      document.getElementById(id).style.display = 'block';
+      if (id === 'store') renderProducts();
+      if (id === 'todo') renderTasks();
+    }
+
+    function goHome() {
+      document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
+      document.getElementById('home').style.display = 'flex';
+    }
+
+    // Contact Form
+    window.addEventListener('DOMContentLoaded', () => {
+      const contactForm = document.querySelector('.contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', e => {
+          e.preventDefault();
+          alert('Message sent!');
+        });
+      }
+
+      document.getElementById("addTaskBtn").addEventListener("click", addTask);
+    });
+
+    // To-Do List
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    function saveTasks() {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function renderTasks() {
+      const list = document.getElementById('taskList');
+      list.innerHTML = '';
+      tasks.forEach((task, i) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          ${task}
+          <button onclick="deleteTask(${i})" style="margin-left: 10px; background: red; color: white; border: none; border-radius: 5px; padding: 4px 8px; cursor: pointer;">Delete</button>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function addTask() {
+      const input = document.getElementById('taskInput');
+      const task = input.value.trim();
+      if (task) {
+        tasks.push(task);
+        saveTasks();
+        renderTasks();
+        input.value = '';
+      }
+    }
+
+    function deleteTask(i) {
+      tasks.splice(i, 1);
+      saveTasks();
+      renderTasks();
+    }
+
+    // Product Store
+    const products = [
+      {
+        name: "Phone",
+        category: "electronics",
+        price: 699,
+        rating: 4.6,
+        img: "https://cdn-icons-png.flaticon.com/512/3523/3523885.png"
+      },
+      {
+        name: "Laptop",
+        category: "electronics",
+        price: 899,
+        rating: 4.8,
+        img: "https://cdn-icons-png.flaticon.com/512/270/270798.png"
+      },
+      {
+        name: "T-Shirt",
+        category: "clothing",
+        price: 20,
+        rating: 4.1,
+        img: "https://cdn-icons-png.flaticon.com/512/892/892458.png"
+      },
+      {
+        name: "Jeans",
+        category: "clothing",
+        price: 50,
+        rating: 4.4,
+        img: "https://cdn-icons-png.flaticon.com/512/6813/6813487.png"
+      },
+      {
+        name: "Book A",
+        category: "books",
+        price: 10,
+        rating: 4.9,
+        img: "https://cdn-icons-png.flaticon.com/512/2232/2232688.png"
+      },
+      {
+        name: "Book B",
+        category: "books",
+        price: 25,
+        rating: 4.3,
+        img: "https://cdn-icons-png.flaticon.com/512/3145/3145765.png"
+      }
+    ];
+
+    function renderProducts() {
+      const category = document.getElementById('categoryFilter').value;
+      const maxPrice = parseInt(document.getElementById('priceFilter').value);
+      const sortBy = document.getElementById('sortBy').value;
+
+      let filtered = products.filter(p =>
+        (category === 'all' || p.category === category) && p.price <= maxPrice
+      );
+
+      filtered.sort((a, b) => sortBy === 'high' ? b.rating - a.rating : a.rating - b.rating);
+
+      const container = document.getElementById('productList');
+      container.innerHTML = filtered.map(p => `
+        <div class="product">
+          <img src="${p.img}" alt="${p.name}" style="width:100%; height:150px; object-fit:contain; margin-bottom:10px;">
+          <h4>${p.name}</h4>
+          <p>Category: ${p.category}</p>
+          <p>Price: $${p.price}</p>
+          <p>Rating: ${p.rating} ⭐</p>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('categoryFilter').addEventListener('change', renderProducts);
+    document.getElementById('priceFilter').addEventListener('input', e => {
+      document.getElementById('priceValue').textContent = e.target.value;
+      renderProducts();
+    });
+    document.getElementById('sortBy').addEventListener('change', renderProducts);
+
+    // Show home first
+    goHome();
+  </script>
+</body>
+</html>
